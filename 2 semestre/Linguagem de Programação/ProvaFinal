@@ -1,0 +1,111 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+
+typedef struct
+{
+    int ID_editora;
+    char nomeFantasia_Editora[255], RazaoSocial_Editora[255], Endereco_Editora[255], telefone_Editora[255];
+}Dados;
+Dados editora;
+FILE *f1;
+char cidade_editora[25];
+
+void cadastrar()
+{
+    printf("\n\nID da editora:\n");
+    scanf("%d", &editora.ID_editora);
+    printf("\n Nome fantasia da editora:\n ");
+    fflush(stdin);
+    gets(editora.nomeFantasia_Editora);
+    printf("\n Razao social da editora:\n ");
+    fflush(stdin);
+    gets(editora.RazaoSocial_Editora);
+    printf("\n Endereco da editora:\n ");
+    fflush(stdin);
+    gets(editora.Endereco_Editora);
+    printf("\n Telefone da editora:\n ");
+    fflush(stdin);
+    gets(editora.telefone_Editora);
+    fseek(f1,0,SEEK_END);
+    fwrite(&editora, sizeof(Dados),1,f1);
+}
+
+
+void listarRestricao(char cidade_editora[25])
+{
+    rewind(f1);
+    do{
+
+        fread(&editora,sizeof(Dados),1,f1);
+
+        if((feof(f1)==0)&&(strcmp(cidade_editora,editora.Endereco_Editora)==0))
+        {
+            printf("\n%s esta na cidade %s\n",editora.nomeFantasia_Editora, cidade_editora);
+        }
+
+
+    }while(feof(f1)==0);
+}
+
+void imprimir()
+{
+    rewind(f1);
+    do
+    {
+        fread(&editora,sizeof(Dados),1,f1);
+        printf("\nNome Fantasia: %s\n", editora.nomeFantasia_Editora);
+
+    }while(feof(f1)==0);
+}
+
+int main()
+{
+
+    f1=fopen("Editoras.dat","a+b");
+    if (f1 == NULL)
+    {
+        printf("\nProblemas na abertura do arquivo\n");
+        exit(1);
+    }
+    int i=1;
+   for(i=1;i<=4;i++){
+       cadastrar(i);
+    }
+    imprimir();
+    int op=9;
+    while(op!=4)
+    {
+        printf("\n 1-Cadastrar\n2-Listar conforme restricao\n3-Listar todos\n4-Sair ");
+        scanf("%d", &op);
+        while((op<0)||(op>4))
+        {
+            printf("\nOpcao invalida!!!\n");
+            printf("\n 1-Cadastrar\n2-Listar conforme restrição\n3-Listar todos\n4-Sair ");
+            scanf("%d", &op);
+        }
+        switch(op)
+        {
+            case 1:
+                cadastrar();
+                break;
+            case 2:
+                printf("Informe o nome da cidade que deseja verificar:\n");
+                fflush(stdin);
+                gets(cidade_editora);
+                listarRestricao(cidade_editora);
+                break;
+            case 3:
+                printf("\nNome das editoras: \n");
+                imprimir();
+                break;
+            case 0:
+                exit(1);
+        }
+    }
+    fclose(f1);
+    system("pause");
+    return 0;
+}
+
