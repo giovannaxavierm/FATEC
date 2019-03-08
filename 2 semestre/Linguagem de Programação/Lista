@@ -1,0 +1,141 @@
+
+//EX 15
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+int main()
+{
+    char word[255];
+    printf("Informe uma palavra:\n");
+    gets(word);
+    printf("Transformada em minuscula: %s", strlwr(word));
+    getch();
+
+}
+
+
+
+//EX 16
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+int main()
+{
+    char word[255];
+    printf("Informe uma palavra:\n");
+    gets(word);
+    printf("Transformada em minuscula: %s", strupr(word));
+    getch();
+
+}
+
+//EX 17
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+int main()
+{
+   char frase[255], str2[255];
+   int aux=0;
+    printf("Escreva a frase:\n");
+    gets(frase);
+    aux = strlen(frase);
+    for (int i=0, j=0; i <= aux; i++, j++)
+    {
+        if(frase[i]==' ')
+        {
+            j++;
+        }
+        str2[i] = frase[j];
+
+    }
+    printf("String sem espacos em branco: %s", str2);
+    getch();
+}
+
+
+//EX 18
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+int main() {
+  char string[255], L1, L2;
+  printf("Informe a palavra:\n");
+  fgets(string, 255, stdin);
+  string[strlen(string)-1] = '\0';
+  printf("Informe a letra que contem na palavra:\n");
+  scanf(" %c", &L1);
+  printf("Informe a letra para substituir:\n");
+  scanf(" %c", &L2);
+  for (int i = 0; string[i] != '\0'; i++) {
+    if (string[i] == L1)
+      string[i] = L2;
+  }
+  printf("%s\n", string);
+  return 0;
+}
+
+
+
+//EX 21
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void inverte(char frase1[255], char str1[255])
+{
+    int j =0;
+    int aux = strlen(frase1);
+    for (int i=aux-1; i>=0;i--)
+    {
+      str1[j] = frase1[i];
+      if (str1[j] == 'a' || str1[j] == 'A')
+      {
+          str1[j] = '*';
+      }
+      j++;
+    }
+    printf("%s\n", str1);
+}
+
+int main()
+{
+    char frase[2][255],str[2][255];
+    int j = 0;
+    for (j=0;j<2;j++)
+    {
+        printf("Informe a primeira frase:\n");
+        fflush(stdin);
+        gets(frase[j]);
+    }
+    inverte(frase[0],str[0]);
+    inverte(frase[1],str[1]);
+    getch();
+}
+
+//EX22
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    float valor, desconto, valorA;
+    char nome[255];
+    printf("Informe o nome da mercadoria:\n");
+    gets(nome);
+    printf("Informe o valor da mercadoria:\n");
+    scanf("%f", &valor);
+    desconto = (valor*0.1);
+    valorA = (valor-desconto);
+    printf("Nome da mercadoria: %s\nValor total: %.2f\nValor do desconto: %.2f\nValor a vista: %.2f", nome, valor, desconto, valorA);
+    getch();
+
+
+}
